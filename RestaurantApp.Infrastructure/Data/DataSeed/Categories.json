@@ -1,0 +1,39 @@
+[
+  {
+    "Name": "Pizzas",
+    "Description": "A variety of freshly baked pizzas with delicious toppings and sauces.",
+    "ImageUrl": "49e80e2b-a20b-4680-bed2-7c3508ef7ccc images (1).jpeg"
+  },
+  {
+    "Name": "Drinks",
+    "Description": "Refreshing cold and hot beverages to complement your meal.",
+    "ImageUrl": "8737e93b-9a2d-497b-a654-1a438fa363e6 Beverages.jpeg"
+  },
+  {
+    "Name": "Desserts",
+    "Description": "Sweet treats and cakes to finish your meal on a high note.",
+    "ImageUrl": "ed34470e-1ddb-4c48-9202-72764eb83183 download (17).jpeg"
+  },
+  {
+    "Name": "Burgers",
+    "Description": "Juicy grilled and crispy fried burgers packed with flavor.",
+    "ImageUrl": "68c14112-d9d9-4125-928c-02ef8887c5d0 Burgers.jpeg"
+  },
+  {
+    "Name": "Pasta",
+    "Description": "Delicious pasta dishes with creamy or tomato-based sauces.",
+    "ImageUrl": "49e80e2b-a20b-4680-bed2-7c3508ef7ccc images (1).jpeg"
+  },
+  {
+    "Name": "Salads",
+    "Description": "Healthy and fresh salad options.",
+    "ImageUrl": "1c40b75c-4267-4613-88e3-4eaa4cc6b6cd salad.jpeg"
+
+  },
+  {
+    "Name": "Seafood",
+    "Description": "Delicious seafood dishes cooked with care.",
+    "ImageUrl": "c9825010-20e2-4f08-9fb2-fbbfe96752de download (16).jpeg"
+
+  }
+]

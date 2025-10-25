@@ -1,0 +1,72 @@
+[
+  {
+    "Name": "Margherita Pizza",
+    "Description": "Classic pizza with tomato sauce, mozzarella cheese and fresh basil.",
+    "Price": 85.0,
+    "CategoryId": 1,
+    "ImageUrl": "pizza-margherita.jpg"
+  },
+  {
+    "Name": "Pepperoni Pizza",
+    "Description": "Spicy pepperoni with mozzarella cheese and tomato sauce.",
+    "Price": 95.0,
+    "CategoryId": 1,
+    "ImageUrl": "pizza-pepperoni.jpg"
+  },
+  {
+    "Name": "BBQ Chicken Pizza",
+    "Description": "Grilled chicken with BBQ sauce, red onions and mozzarella.",
+    "Price": 110.0,
+    "CategoryId": 1,
+    "ImageUrl": "pizza-bbq-chicken.jpg"
+  },
+  {
+    "Name": "Coca-Cola",
+    "Description": "Cold soft drink 330ml can.",
+    "Price": 25.0,
+    "CategoryId": 2,
+    "ImageUrl": "drink-coke.jpg"
+  },
+  {
+    "Name": "Orange Juice",
+    "Description": "Freshly squeezed orange juice, 250ml.",
+    "Price": 30.0,
+    "CategoryId": 2,
+    "ImageUrl": "drink-orange-juice.jpg"
+  },
+  {
+    "Name": "Chocolate Cake",
+    "Description": "Rich chocolate cake with fudge topping.",
+    "Price": 55.0,
+    "CategoryId": 3,
+    "ImageUrl": "dessert-chocolate-cake.jpg"
+  },
+  {
+    "Name": "Cheesecake",
+    "Description": "Creamy baked cheesecake with strawberry sauce.",
+    "Price": 60.0,
+    "CategoryId": 3,
+    "ImageUrl": "dessert-cheesecake.jpg"
+  },
+  {
+    "Name": "Classic Beef Burger",
+    "Description": "Juicy beef patty with lettuce, tomato, cheese, and special sauce.",
+    "Price": 90.0,
+    "CategoryId": 4,
+    "ImageUrl": "burger-classic.jpg"
+  },
+  {
+    "Name": "Chicken Burger",
+    "Description": "Crispy fried chicken breast with mayo and pickles.",
+    "Price": 85.0,
+    "CategoryId": 4,
+    "ImageUrl": "burger-chicken.jpg"
+  },
+  {
+    "Name": "Creamy Alfredo Pasta",
+    "Description": "Penne pasta in creamy Alfredo sauce with parmesan cheese.",
+    "Price": 100.0,
+    "CategoryId": 5,
+    "ImageUrl": "pasta-alfredo.jpg"
+  }
+]

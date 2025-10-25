@@ -1,0 +1,169 @@
+﻿
+@model CreateOrderVM
+@{
+    ViewData["Title"] = "Check";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-8">
+            <div class="container">
+                <!-- Navigation steps -->
+
+                <ul class="nav nav-tabs step-nav mb-4  nav-justified " id="checkoutTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-3 text-uppercase font-weight-bold btn-block  active" id="address-tab" data-bs-toggle="tab" data-bs-target="#address" role="tab">ADDRESS</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-3 text-uppercase font-weight-bold btn-block" id="delivery-tab" data-bs-toggle="tab" data-bs-target="#delivery" type="button" role="tab">DELIVERY</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-3 text-uppercase font-weight-bold btn-block" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab">REVIEW</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link py-3 text-uppercase font-weight-bold btn-block" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment" type="button" role="tab">PAYMENT</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="checkoutTabContent">
+                    <!-- ADDRESS STEP -->
+                    <div class="tab-pane fade show active" id="address" role="tabpanel">
+                        <h4 class="mb-3">Shipping address</h4>
+                        <form asp-action="Create" method="post">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label asp-for="FirstName" class="form-label">First name</label>
+                                    <input type="text" class="form-control" asp-for="FirstName" id="firstName" >
+									<span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="LastName" class="form-label">Last name</label>
+                                    <input type="text" class="form-control" asp-for="LastName" id="lastName">
+									<span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label asp-for="Street" class="form-label">Street</label>
+                                    <input type="text" class="form-control" asp-for="Street" id="street" placeholder="10 The Updated Street">
+									<span asp-validation-for="Street" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="City" class="form-label">City</label>
+                                    <input type="text" class="form-control" asp-for="City" id="city" placeholder="Giza">
+									<span asp-validation-for="City" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            @* <div class="d-flex justify-content-between mt-4"> *@
+                            @*     <button type="button" class="btn btn-outline-danger">&lt; Back to basket</button> *@
+                            @*     <button type="submit" class="btn btn-orange">Go to delivery &gt;</button> *@
+                            @* </div> *@
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="submit" class="btn btn-primary">Submit Order &gt;</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="delivery" role="tabpanel">
+                        <div class="table-responsive">
+                            <table class="table table-borderless">
+                                <thead class="border-0 py-2">
+                                    <tr>
+                                        <th scope="col">
+                                            <div class="p-2  text-uppercase">Product</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="py-2 text-uppercase">Price</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="py-2 text-uppercase">Quantity</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="py-2 text-uppercase">Total</div>
+                                        </th>
+                                        <th *ngIf="isBasket" scope="col" class="border-0">
+                                            <div class="py-2 text-uppercase">Remove</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.Cart.CartItems)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="p-2">
+                                                    <img src="~/Files/menuItem/@item.ImageUrl" alt="" class="img-fluid" style="max-height: 50px;">
+                                                    <div class="ml-3 d-inline-block align-middle">
+
+                                                    </div>
+
+                                                </div>
+                                            </th>
+                                            <td class="align-middle"><strong>$@item.Price</strong></td>
+                                            <td class="align-middle">
+                                                <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
+                                                    <i  class="fa fa-minus-circle text-warning mr-2" style="cursor: pointer; font-size: 1.5em;"></i>
+                                                    <span class="font-weight-bold" style="font-size: 1.5em;">
+                                                        @item.Quantity
+                                                    </span>
+                                                    <i class="fa fa-plus-circle text-warning mx-2" style="cursor: pointer; font-size: 1.5em;"></i>
+                                                </div>
+                                            </td>
+                                            <td class="align-middle">
+                                                <strong>$@((item.Quantity *item.Price).ToString("0.00"))</strong>
+                                            </td>
+                                            <td class="align-middle text-center">
+                                                <a class="text-danger">
+                                                    <i  class="fa fa-trash" style="font-size: 1.5em; cursor: pointer;"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="payment" role="tabpanel">
+                    </div>
+                    </div>
+             
+                </div>
+          
+           
+                </div>
+       
+                <!-- Right side: Order Summary -->
+                 
+             <div class="col-4">
+                 
+            <div class="bg-light px-4 text-uppercase font-weight-bold" style="padding: 1.20em;">
+                Order Summary
+            </div>
+            <div class="p-4">
+                <p class="font-italic mb-4">Shipping costs will be added depending on choices made during checkout</p>
+                <ul class="list-unstyled mb-4">
+                    <li class="d-flex justify-content-between py-3 border-bottom">
+                        <strong class="text-muted">Order subtotal</strong>
+                        <strong>$@Model.Subtotal</strong>
+                    </li>
+                    <li class="d-flex justify-content-between py-3 border-bottom">
+                        <strong class="text-muted">Tax</strong>
+                        <strong>$@((Model.Tax).ToString("0.00"))</strong>
+                    </li>
+                    <li class="d-flex justify-content-between py-3 border-bottom">
+                        <strong class="text-muted">Total</strong>
+                        <strong>$@Model.Total.ToString("0.00")</strong>
+                    </li>
+                </ul>
+            </div>
+                </div>
+
+
+    </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+

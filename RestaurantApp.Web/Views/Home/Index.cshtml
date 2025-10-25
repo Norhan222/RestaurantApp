@@ -1,0 +1,32 @@
+﻿@model MenuVM
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5 con">
+    <!-- 🔹 Section Header -->
+    <div class="text-center mb-5 category-header">
+        <h6 class="top-head">TOP FOODS</h6>
+        <h2 class="main-title">Our Categories</h2>
+    </div>
+
+    <!-- 🔹 Categories Grid -->
+    <div class="row justify-content-center text-center g-4">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="col-sm-6 col-md-4 col-xl-4 col-lg-3">
+                <div class="category-card">
+                    <div class="image-container mb-3">
+                        <img src="~/Files/Category/@category.ImageUrl" class="img-fluid rounded-circle shadow-sm category-img" alt="@category.Name" />
+                    </div>
+                    <h5 class="fw-semibold">@category.Name</h5>
+                    <p class="text-muted small">@category.Id Restaurants Products</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

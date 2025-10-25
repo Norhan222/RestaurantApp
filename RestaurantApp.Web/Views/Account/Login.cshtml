@@ -1,0 +1,48 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<section class="book_section layout_padding">
+	<div class="container">
+		<form asp-action="Login">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form_container">
+						<img id="userlogin" src="~/templete/images/img.jpg" class="img-thumbnail" />
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form_container">
+						<div class="form-group">
+							<div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+							<input class="form-control" asp-for="UserName" placeholder="Enter Username" />
+							<span asp-validation-for="UserName" class="text-danger"></span>
+
+						</div>
+						<div class="form-group">
+							<input class="form-control" asp-for="Password" placeholder="Enter Password" />
+							<span asp-validation-for="Password" class="text-danger"></span>
+
+						</div>
+						<div class="form-group form-check">
+							<input asp-for="RememberMe" class="form-check-input" />
+							<label class="form-check-label" asp-for="RememberMe">Remember Me</label>
+						</div>
+						
+					</div>
+					<div class="btn_box">
+						<button type="submit" class="btn btn-success rounded-pill pl-4 pr-4 text-white">Login</button>
+						<label class="pl-3 text-info">New User? <a asp-action="Register" class="badge badge-info">Register here..</a></label>
+
+					</div>
+				</div>
+
+			</div>
+		</form>
+
+	</div>
+
+</section>
+

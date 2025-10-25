@@ -1,0 +1,85 @@
+﻿@model IEnumerable<CategoryVM>
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@if (TempData["Massege"] is not null)
+{
+	<div id="messagediv" class="alert alert-success">@TempData["Message"]</div>
+}
+<div class="pcoded-inner-content" pt-0>
+	<div class="main-body">
+		<div class="page-wrapper">
+			<div class="page-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="card">
+
+							<div class="card-header">
+							</div>
+
+							<div class="card-block">
+								<div class="row">
+									<div class="col-12 mobile-inputs">
+										<h4 class="sub-title"><a asp-controller="Category" asp-action="Create" class="btn btn-success">Add Category</a></h4>
+										<div class="card-block tabel-border-style">
+											<div class="table-responsive">
+												<table class="table data-table-export table-hover nowrap">
+													<thead>
+														<tr>
+															<th class="table-plus">Name</th>
+															<th>Image</th>
+															<th>CreateOfDate</th>
+															<th>IsActive</th>
+															<th class="datatable-nosort">Action</th>
+														</tr>
+													</thead>
+
+													<tbody>
+														@if (Model.Count() > 0)
+														{
+
+															@foreach (var item in Model)
+															{
+																<tr>
+																	<td class="table-plus">@Html.DisplayFor(C => item.Name)</td>
+																	<td><img src="~/Files/Category/@item.ImageUrl" width="60" alt="No Image" /></td>
+																	<td>@item.CreatedAt</td>
+
+																	<td>
+																		@if (item.IsDeleted == false)
+																		{
+																			<label id="lblIsActive" class="badge badge-success">Active</label>
+																		}
+																		@if (item.IsDeleted == true)
+																		{
+																			<label id="lblIsActive" class="badge badge-danger">NoActive</label>
+																		}
+
+																	</td>
+																	<td>
+																		<a id="lnkEdit" asp-action="Edit" asp-route-id="@item.Id" class="badge badge-primary"><i class="ti-pencil"></i></a>
+																		<a id="lnkDelete" asp-action="Delete" asp-route-id="@item.Id" style="@(item.IsDeleted ? "pointer-events:none;opacity:0.6" : "")" class="badge bg-danger" onclick="return confirm('Do you want delete this category?');"><i class="ti-trash"></i></a>
+
+																	</td>
+																</tr>
+															}
+														}
+													</tbody>
+												</table>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+

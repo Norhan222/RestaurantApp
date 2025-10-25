@@ -1,0 +1,67 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="book_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <div class="align-self-end">
+            </div>
+        </div>
+        <form asp-action="Register" enctype="multipart/form-data">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <div class="form_container">
+                      
+                        <div>
+                            <div asp-validation-summary="ModelOnly" class="text-danger"> </div>
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                            <input class="form-control" asp-for="UserName" placeholder="Enter Username" />
+                        </div>
+                        <div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <input class="form-control" asp-for="Email" placeholder="Enter Email" />
+                        </div>
+                        <div>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                            <input class="form-control" asp-for="Address" placeholder="Enter Address" />
+                        </div>
+
+                     
+             
+                    </div>
+                    <div class="row pl-4">
+                        <div class="btn_box">
+                            <button type="submit" class="btn btn-success rounded-pill pl-4 pr-4 text-white">Register</button>
+                            <label class="pl-3 text-black-100">Already Registered? <a asp-action="Login" class="badge badge-info">Login here..</a></label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form_container">
+                   
+                        <div>
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <input class="form-control" asp-for="Password" placeholder="Enter Password" />
+                        </div>
+                        <div>
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            <input class="form-control" asp-for="ConfirmPassword" placeholder="Confirm Password" />
+                        </div>
+                    </div>
+
+                </div>
+             
+
+            </div>
+          
+        </form>
+
+    </div>
+
+</section>
+
