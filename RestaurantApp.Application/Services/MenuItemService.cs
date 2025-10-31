@@ -44,18 +44,40 @@ namespace RestaurantApp.Application.Services
          
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+
+            var item = await _menuItemRepo.GetByIdAsync(id);
+            if (item != null)
+            {
+                item.IsDeleted = true;
+                await _menuItemRepo.SaveAsync();
+            }
+        }
+
+        public async Task<PagedResult> GetAllAsync(int pageNumber=1,int pageSize=3)
+        {
+            var menuitems= await _menuItemRepo.GetItemsWithCategoryAsync(pageNumber, pageSize);
+            var menuitemsmapped=menuitems.Adapt<IEnumerable<MenuItemDto>>();
+            int count =( await _menuItemRepo.GetAllAsync()).Count();
+            var pagedResult = new PagedResult()
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                menuItems = menuitemsmapped.ToList(),
+                PageCount =(int)Math.Ceiling((decimal)count / pageSize)
+
+            };
+            return pagedResult;
         }
 
         public async Task<IEnumerable<MenuItemDto>> GetAllAsync()
         {
+            var menuitems = await _menuItemRepo.GetItemsWithCategoryAsync();
+            var menuitemsmapped = menuitems.Adapt<IEnumerable<MenuItemDto>>();
 
-            var menuitems= await _menuItemRepo.GetItemsWithCategoryAsync();
-            var menuitemsmapped=menuitems.Adapt<IEnumerable<MenuItemDto>>();
-            
             return menuitemsmapped;
+
         }
 
         public async Task<MenuItemDto> GetMenuItemAsync(int id)

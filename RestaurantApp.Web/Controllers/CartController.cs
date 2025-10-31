@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Build.Evaluation;
 using RestaurantApp.Application.Interfaces;
 using RestaurantApp.Domain.Models;
+using RestaurantApp.Web.Models;
 using System.Security.Claims;
 
 namespace RestaurantApp.Web.Controllers
@@ -19,8 +21,14 @@ namespace RestaurantApp.Web.Controllers
         {
             var key=GetCartKey();
             var cart= await _cartService.GetCartAsync(key);
-            return View(cart);
+            var cartVM = new CustomerCartVM();
+
+            cartVM.CartItems = cart.CartItems;
+            cartVM.SubTotal = cart.CartItems.Sum(c => c.Quantity * c.Price);
+            cartVM.Total = cartVM.SubTotal + cartVM.Shipping;
+            return View(cartVM);
         }
+        [HttpPost]
         public async Task<IActionResult> AddToCart(int id)
         {
             var key = GetCartKey();
@@ -39,7 +47,8 @@ namespace RestaurantApp.Web.Controllers
             };
 
             await _cartService.AddToCartAsync(key, cartItem);
-            return View("Menu", "Home");
+            var  itemscount =await _cartService.GetCartItmeCountAsync(key);
+            return Json(new { success=true, count=itemscount });
         }
         [HttpPost]
         public   async  Task<IActionResult> UpdateQuantity(int id,int quantity)
@@ -60,8 +69,16 @@ namespace RestaurantApp.Web.Controllers
             };
 
            var updatedcartitem= await _cartService.AddToCartAsync(key, cartItem);
-            return Json(new { success = true, newQuantity = quantity});
+            var subtotal=updatedcartitem.CartItems.Sum(c=>c.Quantity * c.Price);
+            
+            return Json(new { success = true, newQuantity = quantity,subTotal=subtotal});
 
+        }
+        public async Task<IActionResult> GetCartCount()
+        {
+            var key = GetCartKey();
+            var countitem = await _cartService.GetCartItmeCountAsync(key);
+            return Json(new { success = false, count = countitem });
         }
 
         public async Task<IActionResult> Delete(int id)

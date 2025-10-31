@@ -1,4 +1,5 @@
-﻿using RestaurantApp.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantApp.Application.Interfaces;
 using RestaurantApp.Domain.Models;
 using RestaurantApp.Infrastructure.Data;
 using System;
@@ -21,6 +22,11 @@ namespace RestaurantApp.Infrastructure.Repositories
         {
            await _dbContext.Orders.AddAsync(order);
             await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task<Order> GetOrderByUser(string userId)
+        {
+           return await  _dbContext.Orders.Include(o=>o.Items).FirstOrDefaultAsync(o=>o.UserId == userId);
         }
     }
 }

@@ -48,7 +48,12 @@ namespace RestaurantApp.Application.Services
 
         public async Task<IEnumerable<CategoryDto>> GetAllAsync()
         {
-           var categories=await _categoryRepo.GetAllAsync();
+           var categories=await _categoryRepo.GetAllActiveAsync();
+            return categories.Adapt<IEnumerable<CategoryDto>>();
+        }
+        public async Task<IEnumerable<CategoryDto>> GetAllNoActiveAsync()
+        {
+            var categories = await _categoryRepo.GetAllAsync();
             return categories.Adapt<IEnumerable<CategoryDto>>();
         }
 

@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RestaurantApp.Application.Dtos;
@@ -9,6 +10,7 @@ using System.Drawing.Printing;
 
 namespace RestaurantApp.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class MenuItemController : Controller
     {
         private readonly IMenuItemService _menuItemService;
@@ -23,7 +25,7 @@ namespace RestaurantApp.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var menuItems = await _menuItemService.GetAllAsync();
-            var menuItemsmapped = menuItems.Adapt<IEnumerable<MenuItemVM>>();
+            var menuItemsmapped =menuItems.Adapt<IEnumerable<MenuItemVM>>();
             return View(menuItemsmapped);
         }
 
@@ -109,5 +111,11 @@ namespace RestaurantApp.Web.Controllers
             await _menuItemService.Update(meunItemDto);
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _menuItemService.Delete(id);
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -12,6 +12,8 @@ namespace RestaurantApp.Application.Interfaces
     public interface ICategoryService
     {
         Task<IEnumerable<CategoryDto>> GetAllAsync();
+        Task<IEnumerable<CategoryDto>> GetAllNoActiveAsync();
+
         Task<CategoryDto> GetByIdAsync(int id);
         Task<Result> CreateAsync(CreateCategoryDto categoryDto);
         Task Update(EditCategoryDto categoryDto);

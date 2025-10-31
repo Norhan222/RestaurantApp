@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
@@ -10,6 +11,7 @@ using System.Security.Claims;
 
 namespace RestaurantApp.Web.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly ICartService _cartService;
@@ -47,11 +49,16 @@ namespace RestaurantApp.Web.Controllers
                 var orderDto = orderVM.Adapt<CreateOrderDto>();
                 await  _orderService.CreateOrder(userId, key, orderDto);
                 await _cartService.Delete(key);
-                return RedirectToAction("Details");
+                return RedirectToAction("CheckOutSuccess");
             }
             return RedirectToAction("Index");
         }
-
+        public async  Task<IActionResult> CheckOutSuccess()
+        {
+            var usreid= User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var order=await _orderService.GetOrder(usreid);
+            return View(order);
+        }
 
     }
 }

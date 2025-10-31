@@ -23,5 +23,10 @@ namespace RestaurantApp.Infrastructure.Repositories
         {
           return await _dbContext.Categories.AnyAsync(c=>c.Name.ToLower()== name.ToLower()&&!c.IsDeleted);
         }
+
+        public async Task<IEnumerable<Category>> GetAllActiveAsync()
+        {
+            return await _dbContext.Categories.Where(c=>c.IsDeleted==false).ToListAsync();
+        }
     }
 }

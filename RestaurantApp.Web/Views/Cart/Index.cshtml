@@ -1,4 +1,4 @@
-﻿@model CustomerCart
+﻿@model CustomerCartVM
 @{
     ViewData["Title"] = "Cart";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -13,7 +13,7 @@
 						<thead class="cart-table-head">
 							<tr class="table-head-row">
 								<th class="product-remove"></th>
-								<th class="product-image">Product Image</th>
+								<th class="product-image">Item Image</th>
 								<th class="product-name">Name</th>
 								<th class="product-price">Price</th>
 								<th class="product-quantity">Quantity</th>
@@ -41,7 +41,7 @@
 												   onclick="updateQuantity(@item.Id,@item.Price,1, this)"></i>
 											</div>
 										</td>
-								<td class="product-total total">$@((item.Quantity * item.Price).ToString("0.00"))</td>
+										<td class="product-total" id="@item.Id" >$@((item.Quantity * item.Price).ToString("0.00"))</td>
 							</tr>
 							}
 							
@@ -62,20 +62,20 @@
 						<tbody>
 							<tr class="total-data">
 								<td><strong>Subtotal: </strong></td>
-								<td>$500</td>
+									<td id="subtotal">$@Model.SubTotal</td>
 							</tr>
 							<tr class="total-data">
 								<td><strong>Shipping: </strong></td>
-								<td>$45</td>
+								<td id="shipping">$@Model.Shipping</td>
 							</tr>
 							<tr class="total-data">
 								<td><strong>Total: </strong></td>
-								<td>$545</td>
+								<td id="total">$@Model.Total</td>
 							</tr>
 						</tbody>
 					</table>
 					<div class="cart-buttons">
-						<a asp-action="Menu" asp-controller="Home" class="boxed-btn">Update Cart</a>
+					<a asp-action="AllMenu" asp-controller="Home" class="boxed-btn">Update Cart</a>
 						<a asp-action="Index" asp-controller="Order" class="boxed-btn black">Check Out</a>
 					</div>
 				</div>
@@ -96,14 +96,18 @@ else{
 	function updateQuantity(itemId,price, change, element) {
 		const parentDiv = element.parentElement;
 		const quantitySpan = parentDiv.querySelector(".quantity");
-		 const total=document.querySelector(".total")
+		 const total=document.getElementById(itemId)
+		 const subtotal=document.getElementById("subtotal")
+		const totalamount=document.getElementById("total")
+		 const shipping=document.getElementById("shipping")
+
+
 
 		let currentQuantity = parseInt(quantitySpan.textContent);
 		let newQuantity = currentQuantity + change;
 
 		if (newQuantity < 1) newQuantity = 1;
 		quantitySpan.textContent = newQuantity;
-		total.textContent="$"+((newQuantity * price).ToString("0.00"));
 
 		$.ajax({
 			url: '/Cart/UpdateQuantity', 
@@ -111,7 +115,9 @@ else{
 			data: { id: itemId, quantity: newQuantity},
 			success: function (response) {
 				console.log("Quantity updated successfully!");
-
+				total.textContent="$"+(newQuantity * price);
+				subtotal.textContent="$"+(response.subTotal);
+				totalamount.textContent="$"+(response.subTotal +10)
 			},
 			error: function () {
 				alert("Ronge!");

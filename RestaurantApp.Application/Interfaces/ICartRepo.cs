@@ -11,7 +11,7 @@ namespace RestaurantApp.Application.Interfaces
     {
         public Task<CustomerCart?> GetCartAsync(string id);
 
-        public Task UpdateCartAsync(CustomerCart cart);
+        public Task<CustomerCart?> UpdateCartAsync(CustomerCart cart);
 
         public Task DeleteCartAsync(string id);
 

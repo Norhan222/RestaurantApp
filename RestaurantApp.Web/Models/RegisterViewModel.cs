@@ -17,6 +17,8 @@ namespace RestaurantApp.Web.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [Compare("Password",ErrorMessage ="Password Dosenot match")]
+        [DataType(DataType.Password)]
+
         public string ConfirmPassword { get; set; }
 
 

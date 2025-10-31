@@ -25,9 +25,20 @@ namespace RestaurantApp.Infrastructure.Repositories
             return _dbContext.MenuItems.AnyAsync(x => x.Name.ToLower() == name.ToLower());
         }
 
+        public async Task<IEnumerable<MenuItem>> GetItemsWithCategoryAsync(int pageNumber, int pageSize)
+        {
+          return await  _dbContext.MenuItems.Where(m=>m.IsDeleted==false && m.Category.IsDeleted==false).Include(m => m.Category).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
+
         public async Task<IEnumerable<MenuItem>> GetItemsWithCategoryAsync()
         {
-          return await  _dbContext.MenuItems.Include(m => m.Category).ToListAsync();
+            return await _dbContext.MenuItems.Include(m => m.Category).ToListAsync();
+
         }
+
+        //public async Task<IQueryable<MenuItem>> GetPagedMenuItemsAsync(int pageNumber, int pageSize)
+        //{
+        //    return  _dbContext.MenuItems.Skip((pageNumber-1)*pageSize).Take(pageSize);
+        //}
     }
 }

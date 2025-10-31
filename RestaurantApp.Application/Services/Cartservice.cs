@@ -19,7 +19,7 @@ namespace RestaurantApp.Application.Services
            _menuItemRepo = menuItemRepo;
         }
 
-        public async Task<CartItem> AddToCartAsync(string key, CartItem cartitem)
+        public async Task<CustomerCart> AddToCartAsync(string key, CartItem cartitem)
         {
             var cart=await _cartRepo.GetCartAsync(key) ??new CustomerCart(key);
             var existitem = cart.CartItems.FirstOrDefault(i => i.Id == cartitem.Id);
@@ -34,8 +34,8 @@ namespace RestaurantApp.Application.Services
 
                 cart.CartItems.Add(cartitem);
             }
-            await _cartRepo.UpdateCartAsync(cart);
-            return existitem??cartitem;
+           var CustomerCart = await _cartRepo.UpdateCartAsync(cart);
+            return CustomerCart;
 
         }
 
@@ -58,6 +58,14 @@ namespace RestaurantApp.Application.Services
         public async Task<CustomerCart?> GetCartAsync(string id)
         {
           return await  _cartRepo.GetCartAsync(id);
+        }
+
+        public async Task<int> GetCartItmeCountAsync(string id)
+        {
+           var cart= await _cartRepo.GetCartAsync(id);
+            if (cart == null)
+                return 0;
+            return cart.CartItems.Count;
         }
 
         public async Task MergeCartAsync(string sessionCartId, string userId)

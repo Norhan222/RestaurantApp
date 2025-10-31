@@ -11,6 +11,7 @@ namespace RestaurantApp.Application.Interfaces
 {
     public interface IMenuItemService
     {
+        Task<PagedResult> GetAllAsync(int pageNumber = 1,int pageSize=3);
         Task<IEnumerable<MenuItemDto>> GetAllAsync();
         Task<MenuItemDto> GetMenuItemAsync(int id);
         Task<Result> CreateAsync(CreateMenuItemDto createMenuItemDto);

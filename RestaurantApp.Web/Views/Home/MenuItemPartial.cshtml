@@ -1,0 +1,58 @@
+﻿@model MenuVM
+@* 
+<div class="row product-lists">
+	@foreach (var mitem in Model.MenuItems)
+	{
+		<div class="col-lg-3 col-md-6 text-center @mitem.CategoryName">
+			<div class="single-product-item">
+				<div class="product-image">
+					<a href="single-product.html"><img src="~/Files/menuItem/@mitem.ImageUrl" alt=""></a>
+				</div>
+				<h3>@mitem.Name</h3>
+				<p>@mitem.Description</p>
+				<p class="product-price">@mitem.Price$ </p>
+				<a class="cart-btn" onclick="addtocart(@mitem.Id)"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+			</div>
+		</div>
+	}
+</div>
+
+ *@
+ 	<section class="section__container menu__container product-lists">
+ 	<div class="menu__grid ">
+	@foreach (var item in Model.MenuItems)
+		{
+			<div class="menu__card  @item.Name.Replace(" ", "-")">
+				<img src="~/Files/menuItem/@item.ImageUrl" alt="menu" />
+				<h4>@item.Name</h4>
+				<p>
+					@item.Description
+				</p>
+				<div class="menu__card__footer">
+					<h3>$@item.Price</h3>
+					<button class="btn" onclick="addtocart(@item.Id)">Add To Cart</button>
+				</div>
+			</div>
+		}
+ 	</div>
+  </section>
+
+
+<div class="row">
+	<div class="col-lg-12 text-center">
+		<div class="pagination-wrap">
+			<ul>
+				<li><a href="#">Prev</a></li>
+				@for (int num = 1; num <= Model.PageCount; num++)
+				{
+					<li><a class="@(num==Model.PageNumber?"active":" ")   
+                        page-link-ajax"
+						data-page="@num"
+					      >@num</a>
+					</li>
+				}
+				<li><a href="#">Next</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

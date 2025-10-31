@@ -1,0 +1,65 @@
+﻿@model Order
+@{
+	ViewData["Title"] = "Success";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+	<div class="col col-8">
+		<div class="container mt-5 ml-5">
+
+			<div><i class="fa fa-check-circle fa-5x" style="color: green;"></i></div>
+			<h2>Thank you.  Your order is confirmed</h2>
+			<p class="mb-4">Your order has not shipped yet, but this is to be expected as we are not a real store</p>
+			<button *ngIf="order" routerLink="/orders/{{order?.id}}" class="btn btn-outline-success">View your order</button>
+		</div>
+	</div>
+	<div class="col col-4">
+		<div class="container mt-5">
+
+			<div class="order-details-wrap">
+				<table class="order-details text-center">
+					<thead>
+						<tr>
+							<th>order Details</th>
+							<th>Quantity</th>
+
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody class="order-details-body">
+						<tr>
+							<td>Product</td>
+							<td>Quantity</td>
+							<td>Total</td>
+						</tr>
+						@foreach (var item in Model.Items)
+						{
+							<tr>
+								<td>@item.Name</td>
+								<td>@item.Quantity</td>
+								<td>$@item.Total</td>
+							</tr>
+						}
+					
+					</tbody>
+					<tbody class="checkout-details">
+						<tr>
+							<td>Subtotal</td>
+							<td colspan="2" >$@Model.SubTotal</td>
+						</tr>
+						<tr>
+							<td>Tax</td>
+							<td colspan ="2">$@Model.Tax</td>
+						</tr>
+						<tr>
+							<td>Total</td>
+							<td colspan="2">$@Model.GetTotal()</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		</div>
+</div>
+
+

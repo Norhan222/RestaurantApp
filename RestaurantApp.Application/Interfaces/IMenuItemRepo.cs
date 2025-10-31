@@ -11,7 +11,10 @@ namespace RestaurantApp.Application.Interfaces
 {
     public interface IMenuItemRepo :IGenericRepo<MenuItem>
     {
+        Task<IEnumerable<MenuItem>> GetItemsWithCategoryAsync(int pageNumber, int pageSize);
         Task<IEnumerable<MenuItem>> GetItemsWithCategoryAsync();
+
         Task<bool> ExistsByNameAsync(string name);
+        //Task<IQueryable<MenuItem>> GetPagedMenuItemsAsync(int pageNumber, int pageSize);
     }
 }

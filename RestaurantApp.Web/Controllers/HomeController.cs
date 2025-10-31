@@ -20,8 +20,8 @@ namespace RestaurantApp.Web.Controllers
         }
         public async  Task<IActionResult> Index()
         {
-            var menuItems = await _menuItemService.GetAllAsync();
-            var menuItemMapped = menuItems.Adapt<IEnumerable<MenuItemVM>>();
+            var pagedResult = await _menuItemService.GetAllAsync(pageNumber:1);
+            var menuItemMapped = pagedResult.menuItems.Adapt<IEnumerable<MenuItemVM>>();
             var categories = await _categoryService.GetAllAsync();
             var categoryMapped = categories.Adapt<IEnumerable<CategoryVM>>();
 
@@ -31,24 +31,39 @@ namespace RestaurantApp.Web.Controllers
 
             return View(menuvm);
         }
-
-        public async Task<IActionResult> Menu()
+        public async  Task<IActionResult> AllMenu()
         {
-            var menuItems = await _menuItemService.GetAllAsync();
-            var menuItemMapped = menuItems.Adapt<IEnumerable<MenuItemVM>>();
+            var Result = await _menuItemService.GetAllAsync(pageNumber:1);
+            var menuItemMapped = Result.menuItems.Adapt<IEnumerable<MenuItemVM>>();
             var categories = await _categoryService.GetAllAsync();
             var categoryMapped = categories.Adapt<IEnumerable<CategoryVM>>();
 
             var menuvm = new MenuVM();
             menuvm.Categories = categoryMapped;
             menuvm.MenuItems = menuItemMapped;
-            return View(menuvm);
+            menuvm.PageCount = Result.PageCount;
+            menuvm.PageNumber = Result.PageNumber;
+            return View("Menu",menuvm);
         }
-       
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        //public IActionResult Error()
-        //{
-        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        //}
+
+        public async Task<IActionResult> Menu(int page=1)
+        {
+            var Result = await _menuItemService.GetAllAsync(page);
+            var menuItemMapped = Result.menuItems.Adapt<IEnumerable<MenuItemVM>>();
+            var categories = await _categoryService.GetAllAsync();
+            var categoryMapped = categories.Adapt<IEnumerable<CategoryVM>>();
+
+            var menuvm = new MenuVM();
+            menuvm.Categories = categoryMapped;
+            menuvm.MenuItems = menuItemMapped;
+            menuvm.PageCount = Result.PageCount;
+            menuvm.PageNumber = Result.PageNumber;
+            return PartialView("MenuItemPartial",menuvm);
+        }
+        public IActionResult Contact()
+        {
+            return View();
+        }
+  
     }
 }

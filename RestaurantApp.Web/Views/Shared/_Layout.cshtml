@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+@using Microsoft.AspNetCore.Identity;
+@{
+	var user=User.FindFirstValue(ClaimTypes.Name);
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
@@ -7,7 +13,7 @@
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Fruitkha</title>
+	<title>@ViewData["Title"]</title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="~/assets/img/favicon.png">
@@ -15,6 +21,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
 	<!-- fontawesome -->
+
 	<link rel="stylesheet" href="~/assets/css/all.min.css">
 	<!-- bootstrap -->
 	<link rel="stylesheet" href="~/assets/bootstrap/css/bootstrap.min.css">
@@ -28,37 +35,63 @@
 	<link rel="stylesheet" href="~/assets/css/meanmenu.min.css">
 	<!-- main style -->
 	<link rel="stylesheet" href="~/assets/css/main.css">
+
 	<!-- responsive -->
 	<link rel="stylesheet" href="~/assets/css/responsive.css">
+	<link rel="stylesheet" href="~/styles.css">
+
 
 	<link rel="stylesheet" href="~/templete/css/style.css">
 	<link rel="stylesheet" href="~/css/site.css">
 
 
-	 <style>
-	.step-nav .nav-link.active {
-	  background-color: #c74c1f;
-	  color: #fff !important;
-	}
-	.step-nav .nav-link {
-	  border-radius: 0;
-	  color: #444;
-	  font-weight: 600;
-	}
-	.order-summary {
-	  background-color: #f8f9fa;
-	  border-radius: 8px;
-	  padding: 20px;
-	}
-	.btn-orange {
-	  background-color: #c74c1f;
-	  color: white;
-	}
-	.btn-orange:hover {
-	  background-color: #a63d15;
-	  color: white;
-	}
-  </style>
+	<style>
+		.step-nav .nav-link.active {
+		background-color: #c74c1f;
+		color: #fff !important;
+		}
+		.step-nav .nav-link {
+		border-radius: 0;
+		color: #444;
+		font-weight: 600;
+		}
+		.order-summary {
+		background-color: #f8f9fa;
+		border-radius: 8px;
+		padding: 20px;
+		}
+		.btn-orange {
+		background-color: #c74c1f;
+		color: white;
+		}
+		.btn-orange:hover {
+		background-color: #a63d15;
+		color: white;
+		}
+
+		/* يخلي الكروت بنفس الارتفاع */
+		.offer-card {
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+
+		/* يخلي الصورة ثابتة الارتفاع وتقص الحواف الزايدة */
+		.offer-card img {
+			/* height: 90px; / */* تقدر تغيرها حسب التصميم */
+			object-fit: cover; /* دي أهم حاجة عشان الصورة تتظبط */
+			border-top-left-radius: 1rem;
+			border-top-right-radius: 1rem;
+		}
+
+		/* يخلي البودي ياخد المساحة الباقية */
+		.offer-card .card-body {
+			flex: 1;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+	</style>
 </head>
 <body>
 
@@ -78,7 +111,7 @@
 						<!-- logo -->
 						<div class="site-logo">
 							<a href="index.html">
-								<img src="~/assets/img/logo.png" alt="">
+								<img src="~/assets/img/logofoodia3.png" alt="">
 							</a>
 						</div>
 						<!-- logo -->
@@ -86,44 +119,44 @@
 						<nav class="main-menu">
 							<ul>
 								<li><a asp-action="Index" asp-controller="Home">Home</a></li>
-								<li><a asp-action="Menu" asp-controller="Home">Menu</a></li>
+								<li><a asp-action="AllMenu" asp-controller="Home">Menu</a></li>
 								<li>
 									<a href="#">About</a>
 								</li>
 								<li>
 									<a href="news.html">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
-									</ul>
+									
 								</li>
-								<li><a href="contact.html">Contact</a></li>
+								<li><a asp-action="Contact">Contact</a></li>
 								<li>
 									<a href="shop.html">Orders</a>
 								</li>
-							
- 
-							 <li>
+
+
+								<li>
 									<div class="header-icons">
 
- 									       <a asp-action="Index" asp-controller="Cart" class="shopping-cart"><i class="fa fa-shopping-cart"></i>
-											<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger  text-white">
-												3
-												</span>
-											</a>
+										<a asp-action="Index" asp-controller="Cart" class="shopping-cart">
+											<i class="fa fa-shopping-cart fa-lg"></i>
+											<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger  text-white " id="cartcount">
+												0
+											</span>
+										</a>
+										@if (user == null)
+										{
+											<a asp-action="Login" asp-controller="Account" class="mobile-hide rounded-pill d-inline-flex align-items-center justify-content-center px-4 py-1 ml-1" style="background-color:orangered;border:none;">Login</a>
+										}
+										else{
+											<a asp-action="SignOut" asp-controller="Account" class="mobile-hide rounded-pill d-inline-flex align-items-center justify-content-center px-4 py-1 ml-1" style="background-color:orangered;border:none;">Logout</a>
 
+										}
 
- 									 <a  class ="mobile-hide search-bar-icon" href="#"><i class="fas fa-user"></i></a>
-										<ul class="sub-menu">
-											<li><a asp-action="Login" asp-controller="Account">Login</a></li>
-											<li><a asp-action="Register" asp-controller="Account">Register</a></li>
-										</ul> 
 								 </div> 
 							</li> 
 							</ul>
 						</nav>
-						<a class="mobile-show search-bar-icon" href="#"><i class="fas fa-user"></i></a>
-						<div class="mobile-menu"></div>
+					<a class="mobile-show search-bar-icon" href="#"></a>
+						<div class="mobile-menu"></div> 
 						<!-- menu end -->
 					</div>
 				</div>
@@ -142,10 +175,10 @@
 					<div class="col-lg-9 offset-lg-2 text-center">
 						<div class="hero-text">
 							<div class="hero-text-tablecell">
-								<p class="subtitle">Fresh & Organic</p>
-								<h1>Delicious Seasonal Fruits</h1>
+								<p class="subtitle">Taste & Enjoy</p>
+								<h1>Your Daily Does of Deliciousness</h1>
 								<div class="hero-btns">
-									<a href="shop.html" class="boxed-btn">Fruit Collection</a>
+									<a href="#menu" class="boxed-btn">Order Now</a>
 									<a href="contact.html" class="bordered-btn">Contact Us</a>
 								</div>
 							</div>
@@ -162,7 +195,7 @@
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>We sale fresh fruits</p>
+						<p>Fresh taste every time</p>
 							<h1>@ViewData["Title"]</h1>
 					</div>
 				</div>
@@ -170,13 +203,13 @@
 		</div>
 	</div>
 	}
-	<div class="container">
+@* 	<div class="container">*@
 		<main role="main" class="pb-3">
 			@RenderBody()
 		</main>
 
      </div>
-		<!-- footer -->
+	<!-- footer -->
 	<div class="footer-area">
 		<div class="container">
 			<div class="row">
@@ -246,6 +279,8 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://unpkg.com/scrollreveal"></script>
+	<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 	<!-- end copyright -->
 	<!-- jquery -->
 	<script src="~/assets/js/jquery-1.11.3.min.js"></script>
@@ -267,6 +302,30 @@
 	<script src="~/assets/js/sticker.js"></script>
 	<!-- main js -->
 	<script src="~/assets/js/main.js"></script>
+	<script src="main.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+			$.get('/Cart/GetCartCount',function(data){
+				$('#cartcount').text(data.count)
+			});
+		});
+		function addtocart(itemid)
+		{
+			$.post('/Cart/AddToCart',{id:itemid},function(data){
+				if(data.success){
+					$('#cartcount').text(data.count)
+				}
+			});
+		}
+	</script>
+
+
+	@await RenderSectionAsync("menuPage",false)
 
 </body>
+
 </html>
+

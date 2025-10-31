@@ -10,5 +10,6 @@ namespace RestaurantApp.Application.Interfaces
     public interface IOrderRepo
     {
         public Task AddOrder(Order order);
+        public Task<Order> GetOrderByUser(string  userId);
     }
 }

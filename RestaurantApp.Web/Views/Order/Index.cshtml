@@ -56,20 +56,20 @@
                                 </div>
                             </div>
 
-                            @* <div class="d-flex justify-content-between mt-4"> *@
-                            @*     <button type="button" class="btn btn-outline-danger">&lt; Back to basket</button> *@
-                            @*     <button type="submit" class="btn btn-orange">Go to delivery &gt;</button> *@
-                            @* </div> *@
+                    
                             <div class="d-flex justify-content-between mt-4">
                                 <button type="submit" class="btn btn-primary">Submit Order &gt;</button>
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="delivery" role="tabpanel">
+                    <div class="tab-pane fade" id="review" role="tabpanel">
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <thead class="border-0 py-2">
                                     <tr>
+                                        <th scope="col">
+                                            <div class="p-2  text-uppercase">Name</div>
+                                        </th>
                                         <th scope="col">
                                             <div class="p-2  text-uppercase">Product</div>
                                         </th>
@@ -82,42 +82,28 @@
                                         <th scope="col">
                                             <div class="py-2 text-uppercase">Total</div>
                                         </th>
-                                        <th *ngIf="isBasket" scope="col" class="border-0">
-                                            <div class="py-2 text-uppercase">Remove</div>
-                                        </th>
+                                       
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model.Cart.CartItems)
                                     {
+
                                         <tr>
+                                            <td class="align-middle"><strong>@item.Name</strong></td>
+
                                             <th scope="row">
-                                                <div class="p-2">
-                                                    <img src="~/Files/menuItem/@item.ImageUrl" alt="" class="img-fluid" style="max-height: 50px;">
-                                                    <div class="ml-3 d-inline-block align-middle">
-
-                                                    </div>
-
+                                                <div class="p-2 align-content-center">
+                                                    <img src="~/Files/menuItem/@item.ImageUrl" alt="" class="img-fluid" style="max-width: 50px;">
+                                               
                                                 </div>
                                             </th>
                                             <td class="align-middle"><strong>$@item.Price</strong></td>
-                                            <td class="align-middle">
-                                                <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
-                                                    <i  class="fa fa-minus-circle text-warning mr-2" style="cursor: pointer; font-size: 1.5em;"></i>
-                                                    <span class="font-weight-bold" style="font-size: 1.5em;">
-                                                        @item.Quantity
-                                                    </span>
-                                                    <i class="fa fa-plus-circle text-warning mx-2" style="cursor: pointer; font-size: 1.5em;"></i>
-                                                </div>
-                                            </td>
+                                            <td class="align-middle"><strong>@item.Quantity</strong></td>
                                             <td class="align-middle">
                                                 <strong>$@((item.Quantity *item.Price).ToString("0.00"))</strong>
                                             </td>
-                                            <td class="align-middle text-center">
-                                                <a class="text-danger">
-                                                    <i  class="fa fa-trash" style="font-size: 1.5em; cursor: pointer;"></i>
-                                                </a>
-                                            </td>
+                                           
                                         </tr>
                                     }
                                 </tbody>

@@ -465,11 +465,7 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
 
 .section-title {
   margin-bottom: 80px;
-}
-
-.breadcrumb-bg {
-  background-image: url(../img/breadcrumb-bg.jpg);
-}
+}.breadcrumb-bg {    background:linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)), url(../img/carousel-1.jpg);}
 
 .breadcrumb-text p {
   color: #F28123;
@@ -487,12 +483,12 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
 }
 
 .breadcrumb-section {
-  padding: 150px 0;
+  padding: 150px 0 90px 0;
   background-size: cover;
   background-position: center center;
   position: relative;
-  z-index: 1;
-  background-attachment: fixed;
+/*  z-index: 1;*/
+ background-attachment: fixed;
   padding-top: 200px;
 }
 
@@ -1354,7 +1350,7 @@ a.mobile-show.search-bar-icon:hover {
 
 ----------------------------------------------------------------------------- */
 .hero-bg {
-  background-image: url(../img/hero-bg.jpg);
+  background-image: url(../img/carousel-1.jpg);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;

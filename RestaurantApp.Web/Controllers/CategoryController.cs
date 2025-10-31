@@ -1,4 +1,5 @@
 ﻿using Mapster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RestaurantApp.Application.Dtos;
@@ -10,6 +11,7 @@ using RestaurantApp.Web.Models;
 
 namespace RestaurantApp.Web.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class CategoryController : Controller
     {
         private readonly ICategoryService _categoryService;
@@ -22,7 +24,7 @@ namespace RestaurantApp.Web.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var categories = await _categoryService.GetAllAsync();
+            var categories = await _categoryService.GetAllNoActiveAsync();
             var categoriesmapped=categories.Adapt<IEnumerable<CategoryVM>>();
             return View(categoriesmapped);
         }

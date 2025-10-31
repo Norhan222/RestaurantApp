@@ -5,28 +5,181 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container my-5 con">
+<div class="container   my-4  con">
     <!-- 🔹 Section Header -->
     <div class="text-center mb-5 category-header">
         <h6 class="top-head">TOP FOODS</h6>
-        <h2 class="main-title">Our Categories</h2>
+        <h2 class="section__header">Our <span>Categories</span></h2>
     </div>
 
     <!-- 🔹 Categories Grid -->
     <div class="row justify-content-center text-center g-4">
         @foreach (var category in Model.Categories)
         {
-            <div class="col-sm-6 col-md-4 col-xl-4 col-lg-3">
+            <div class="col-sm-6 col-md-4 col-xl-3 col-lg-3">
                 <div class="category-card">
                     <div class="image-container mb-3">
                         <img src="~/Files/Category/@category.ImageUrl" class="img-fluid rounded-circle shadow-sm category-img" alt="@category.Name" />
                     </div>
                     <h5 class="fw-semibold">@category.Name</h5>
-                    <p class="text-muted small">@category.Id Restaurants Products</p>
                 </div>
             </div>
         }
     </div>
 </div>
+
+
+
+<section class="section__container menu__container" id="menu">
+    <h2 class="section__header">Our Popular <span>Dishes</span></h2>
+    <div class="menu__grid">
+        @foreach (var item in Model.MenuItems)
+        {
+            <div class="menu__card">
+                <img src="~/Files/menuItem/@item.ImageUrl" alt="menu" />
+                <h4>@item.Name</h4>
+                <p>
+                    @item.Description
+                </p>
+                <div class="menu__card__footer">
+                    <h3>$@item.Price</h3>
+                    <button class="btn" onclick="addtocart(@item.Id)">Add To Cart</button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="menu__btn">
+        <a asp-action="AllMenu" asp-controller="Home" class="btn">
+            See All Dishes
+            <span><i class="ri-arrow-right-line"></i></span>
+        </a>
+    </div>
+</section>
+
+
+
+<section class="service" id="service">
+    <div class="section__container service__container">
+        <h2 class="section__header">Special <span>Offers</span></h2>
+        <div class="service__grid">
+            <div class="service__card">
+                <div>
+                    <img src="~/assets/img/download (30).jpeg" alt="service" />
+                </div>
+                <h4>Cheesy Burger Feast 🍔</h4>
+                <p>
+                    Juicy double burger + fries + drink
+                </p>
+                <h6 class="text-success fw-bold mb-3">$14.50</h6>
+
+                <a href="#">
+                    Add To Cart
+                    <span><i class="ri-arrow-right-line"></i></span>
+                </a>
+            </div>
+            <div class="service__card">
+                <div>
+                    <img src="assets/img/download (31).jpeg" alt="service" />
+                </div>
+                <h4>Weekend Pizza Deal 🍕r</h4>
+                <p>
+                    Buy 2 Large Pizzas & Get 1 Free!
+                </p>
+                <h6 class="text-success fw-bold mb-3">$29.99 Only</h6>
+
+                <a href="#">
+                    Add To Cart
+    
+                    <span><i class="ri-arrow-right-line"></i></span>
+                </a>
+            </div>
+            <div class="service__card">
+                <div>
+                    <img src="assets/img/download (32).jpeg" alt="service" />
+                </div>
+                <h4>Fresh Salad Combo 🥗</h4>
+                <p>
+                    Healthy and tasty – perfect for lunch!
+                </p>
+                <h6 class="text-success fw-bold mb-3">$14.50</h6>
+
+                <a href="#">
+                    Add To Cart
+                    <span><i class="ri-arrow-right-line"></i></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="banner" id="cart">
+    <div class="section__container banner__container">
+        <div class="banner__image">
+            <img src="assets/img/discount2.png" alt="banner" />
+        </div>
+        <div class="banner__content">
+           @*  <h2 class="section__header">
+                Eat Healthy, Stay <span>Healthy</span>
+            </h2>
+            <p>
+                At Food Plaza, we believe that good food is the foundation of a
+                healthy life. Our meals are crafted with fresh ingredients and
+                balanced nutrition, helping you maintain a healthy lifestyle while
+                enjoying delicious flavors.
+            </p> *@
+            <h2 class="section__header">
+                🎉 Big Deal of the Week!
+            </h2>
+            <p class="lead mb-4">
+                Enjoy <span class="fw-bold text-danger">20% OFF</span> automatically on all orders above
+                <span class="fw-bold">$100</span> 🛍
+            </p>
+            <div class="banner__btn">
+                <button class="btn">
+                    Order Now
+                    <span><i class="ri-arrow-right-line"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Why Choose Us -->
+<section class="container py-5 text-center">
+    <h2 class="fw-bold mb-4">Why Choose Us</h2>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <i class="fa fa-truck fa-3x text-danger mb-3"></i>
+            <h5>Fast Delivery</h5>
+            <p>We deliver your favorite meals in minutes!</p>
+        </div>
+        <div class="col-md-3">
+            <i class="fa fa-leaf fa-3x text-danger mb-3"></i>
+            <h5>Fresh Ingredients</h5>
+            <p>Always fresh, always tasty.</p>
+        </div>
+        <div class="col-md-3">
+            <i class="fa fa-dollar-sign fa-3x text-danger mb-3"></i>
+            <h5>Affordable Prices</h5>
+            <p>Delicious food that fits your budget.</p>
+        </div>
+        <div class="col-md-3">
+            <i class="fa fa-heart fa-3x text-danger mb-3"></i>
+            <h5>Customer Love</h5>
+            <p>Thousands of happy customers!</p>
+        </div>
+    </div>
+</section>
+
+
+
+<!-- FontAwesome & Bootstrap JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
 
 

@@ -31,10 +31,11 @@ namespace RestaurantApp.Infrastructure.Repositories
             return cart.IsNull ? null:JsonSerializer.Deserialize<CustomerCart>(cart);
         }
 
-        public async Task UpdateCartAsync(CustomerCart cart)
+        public async Task<CustomerCart?> UpdateCartAsync(CustomerCart cart)
         {
             var jsonCart = JsonSerializer.Serialize(cart);
             await _database.StringSetAsync(cart.Id, jsonCart,TimeSpan.FromDays(1));
+            return await GetCartAsync(cart.Id);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace RestaurantApp.Application.Interfaces
     public interface ICategoryRepo:IGenericRepo<Category>
     {
         Task<bool> ExistsByNameAsync(string name);
+        Task<IEnumerable<Category>> GetAllActiveAsync();
 
     }
 }

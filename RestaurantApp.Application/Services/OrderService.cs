@@ -52,5 +52,11 @@ namespace RestaurantApp.Application.Services
             };
           await  _orderRepo.AddOrder(order);
         }
+
+        public async Task<Order> GetOrder(string userId)
+        {
+         var order=await _orderRepo.GetOrderByUser(userId);
+          return order;
+        }
     }
 }
